@@ -49,7 +49,7 @@ class Detector : public GenericProcessor
 
     // calibration function
     void calibrate();
-    void detectRipples(std::vector<double> &rInRmsBuffer);
+    void detect(std::vector<double> &rInRmsBuffer);
     void sendTtlEvent(int rmsIndex, int val);
     double calculateRms(const float *rInBuffer, int index);
 
