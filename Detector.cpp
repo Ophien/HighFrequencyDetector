@@ -103,7 +103,7 @@ void Detector::sendTtlEvent(int rmsIndex, int val)
 }
 
 void Detector::detect(std::vector<double> &rInRmsBuffer)
-{
+{    
     for (unsigned int rms_sample = 0; rms_sample < rInRmsBuffer.size(); rms_sample++)
     {
         double sample = rInRmsBuffer[rms_sample];
@@ -174,9 +174,6 @@ void Detector::process(AudioSampleBuffer &rInBuffer)
     _thresholdAmp = _pDetectorEditor->_pluginUi._thresholdAmp;
     _rmsRefractionCount = _pDetectorEditor->_pluginUi._rmsRefractionCount;
     _rmsSize = _pDetectorEditor->_pluginUi._rmsSamplesCount;
-    
-    // define _threshold
-    _threshold = _mean + _thresholdAmp * _standardDeviation;
 
     if (_pDetectorEditor->_pluginUi._calibrate == true)
     {
@@ -222,6 +219,10 @@ void Detector::process(AudioSampleBuffer &rInBuffer)
     }
     else
     {
+        // define _threshold
+        _threshold = _mean + _thresholdAmp * _standardDeviation;
+        
+        // detection algorithm
         detect(local_rms);
     }
 
