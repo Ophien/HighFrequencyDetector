@@ -1,7 +1,8 @@
 /*MIT License
 
-Copyright (c) 2019 Alysson Ribeiro da Silva,
-                   Eliezyer Fermino de Oliveira,
+Copyright (c) 2019 Eliezyer Fermino de Oliveira,
+                   Ikaro Jesus da Silva beraldo,
+                   Alysson Ribeiro da Silva,
                    Cleiton Lopes Aguiar
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
