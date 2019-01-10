@@ -102,7 +102,7 @@ void Detector::sendTtlEvent(int rmsIndex, int val)
     addEvent(_pTtlEventChannel, ttl, rmsIndex);
 }
 
-void Detector::detectRipples(std::vector<double> &rInRmsBuffer)
+void Detector::detect(std::vector<double> &rInRmsBuffer)
 {
     for (unsigned int rms_sample = 0; rms_sample < rInRmsBuffer.size(); rms_sample++)
     {
@@ -149,9 +149,6 @@ void Detector::calibrate()
             _standardDeviation += pow(_calibrationRms[rms_sample] - _mean, 2.0);
         }
         _standardDeviation = sqrt(_standardDeviation / ((double)_calibrationRms.size() - 1));
-
-        // define _threshold
-        _threshold = _mean + _thresholdAmp * _standardDeviation;
     }
 }
 
@@ -177,6 +174,9 @@ void Detector::process(AudioSampleBuffer &rInBuffer)
     _thresholdAmp = _pDetectorEditor->_pluginUi._thresholdAmp;
     _rmsRefractionCount = _pDetectorEditor->_pluginUi._rmsRefractionCount;
     _rmsSize = _pDetectorEditor->_pluginUi._rmsSamplesCount;
+    
+    // define _threshold
+    _threshold = _mean + _thresholdAmp * _standardDeviation;
 
     if (_pDetectorEditor->_pluginUi._calibrate == true)
     {
@@ -222,7 +222,7 @@ void Detector::process(AudioSampleBuffer &rInBuffer)
     }
     else
     {
-        detectRipples(local_rms);
+        detect(local_rms);
     }
 
     // calculate performing time
